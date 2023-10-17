@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { InputToppings } from "./InputTopping";
+import { InputToppings } from "../InputTopping";
 
 const Overlay = styled.div`
   position: absolute;
@@ -56,15 +56,20 @@ export const CheckoutButton = styled.button`
   }
 `
 
-export const ModalItem = ({ openItem, setOpenItem }) => {
-  function closeModal(e) {
+export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
+  const closeModal = e => {
     if (e.target.id === "overlay") {
       setOpenItem(null);
     }
   }
 
-  if (!openItem) {
-    return null;
+  const order = {
+    ...openItem
+  }
+
+  const addToOrder = () => {
+    setOrders([...orders,  order])
+    setOpenItem(null) 
   }
 
   return (
@@ -84,7 +89,7 @@ export const ModalItem = ({ openItem, setOpenItem }) => {
           <InputToppings toppingName={"Халапеньо"} inputId={"japanello"} />
           <InputToppings toppingName={"Сыр"} inputId={"cheese"} />
           <InputToppings toppingName={"Бекон"} inputId={"bacon"} />
-          <CheckoutButton>Добавить</CheckoutButton>
+          <CheckoutButton onClick={addToOrder}>Добавить</CheckoutButton>
         </RadioContainer>
       </Modal>
     </Overlay>

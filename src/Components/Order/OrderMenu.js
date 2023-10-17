@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { OrderMenuItem } from "./OrderMenuItem";
-import { CheckoutButton } from "./ModalItem";
+import { CheckoutButton } from "../Modal/ModalItem";
 
 const OrderMenuList = styled.section`
   position: fixed;
@@ -44,25 +44,35 @@ const OrderSum = styled.span`
 
 const OrderTotalContainer = styled.div`
   display: flex;
-  margin-top: 150px;
+  margin-top: 150px; 
 `;
 
-export const OrderMenu = () => {
+export const OrderMenu = ({ orders }) => {
   return (
     <OrderMenuList>
       <H2Styled>Ваш заказ</H2Styled>
-      <StyledSpan>Вы еще ничего не выбрали</StyledSpan>
       <OrderMenuItemContainer>
+        {orders.length ? ( 
+          orders.map((order) => {
+            return (
+              <OrderMenuItem price={order.price} key={order.id} order={order} />
+            );
+          })
+        ) : (
+          <StyledSpan>Вы еще ничего не выбрали</StyledSpan>
+        )}
+        {/* <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
         <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
-        <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
-        <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
+        <OrderMenuItem content={"Бургер"} quantity={2} price={380} /> */}
       </OrderMenuItemContainer>
       <OrderTotalContainer>
         <OrderTotal>Итого</OrderTotal>
         <OrderQuantity>5</OrderQuantity>
         <OrderSum>850</OrderSum>
       </OrderTotalContainer>
-      <CheckoutButton style={{display: 'flex', margin: '30px auto',}}>Оформить</CheckoutButton>
+      <CheckoutButton style={{ display: "flex", margin: "30px auto" }}>
+        Оформить
+      </CheckoutButton>
     </OrderMenuList>
   );
 };
