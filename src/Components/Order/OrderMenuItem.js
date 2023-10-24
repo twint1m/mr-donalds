@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import binIcon from "../../image/bin-icon.svg"
+import { totalPrice } from "../Functions/secondaryFunction";
+import { formatCurrency } from "../Functions/secondaryFunction";
 
 const OrderSpan = styled.span``;
 
@@ -13,12 +15,9 @@ export const OrderMenuItem = ({ order }) => {
   return (
     <OrderSpanContainer>
       <OrderSpan>{order.name}</OrderSpan>
-      <OrderSpan>2</OrderSpan>
+      <OrderSpan>{order.count}</OrderSpan>
       <OrderSpan>
-        {order.price.toLocaleString("ru-RU", {
-          style: "currency",
-          currency: "RUB",
-        })}
+        {formatCurrency(totalPrice(order))}
       </OrderSpan>
       <img src={binIcon} alt="bin icon"/>
     </OrderSpanContainer>

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { OrderMenuItem } from "./OrderMenuItem";
 import { CheckoutButton } from "../Modal/ModalItem";
+import { totalPrice } from "../Functions/secondaryFunction";
+import { formatCurrency } from "../Functions/secondaryFunction";
 
 const OrderMenuList = styled.section`
   position: fixed;
@@ -9,6 +11,7 @@ const OrderMenuList = styled.section`
   left: 0;
   width: 380px;
   height: 100%;
+
   background: white;
 `;
 
@@ -44,15 +47,19 @@ const OrderSum = styled.span`
 
 const OrderTotalContainer = styled.div`
   display: flex;
-  margin-top: 150px; 
+  margin-top: 150px;
 `;
 
 export const OrderMenu = ({ orders }) => {
+  const total = orders.reduce((result, order) => {
+    return totalPrice(order) + result;
+  }, 0);
+
   return (
     <OrderMenuList>
       <H2Styled>Ваш заказ</H2Styled>
       <OrderMenuItemContainer>
-        {orders.length ? ( 
+        {orders.length ? (
           orders.map((order) => {
             return (
               <OrderMenuItem price={order.price} key={order.id} order={order} />
@@ -61,14 +68,11 @@ export const OrderMenu = ({ orders }) => {
         ) : (
           <StyledSpan>Вы еще ничего не выбрали</StyledSpan>
         )}
-        {/* <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
-        <OrderMenuItem content={"Бургер"} quantity={2} price={380} />
-        <OrderMenuItem content={"Бургер"} quantity={2} price={380} /> */}
       </OrderMenuItemContainer>
       <OrderTotalContainer>
         <OrderTotal>Итого</OrderTotal>
         <OrderQuantity>5</OrderQuantity>
-        <OrderSum>850</OrderSum>
+        <OrderSum>{formatCurrency(total)}</OrderSum>
       </OrderTotalContainer>
       <CheckoutButton style={{ display: "flex", margin: "30px auto" }}>
         Оформить

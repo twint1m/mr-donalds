@@ -2,7 +2,7 @@ import React from "react";
 import { NavBar } from "./Components/NavBar/NavBar";
 import { GlobalStyle } from "./Components/Style/GlobalStyle";
 import { Menu } from "./Components/Menu/Menu";
-import { Banner } from "./Components/Banner";
+import { Banner } from "./Components/Menu/Banner";
 import { ModalItem } from "./Components/Modal/ModalItem";
 import { OrderMenu } from "./Components/Order/OrderMenu";
 import { useOpenItem } from "./Components/Hooks/useOpenItem";
